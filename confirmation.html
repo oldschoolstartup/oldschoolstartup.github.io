@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запрос отправлен — OldSchool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-gray-300 h-12"></header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-8 py-24">
+        <!-- Success Icon -->
+        <div class="text-center mb-12">
+            <div class="success-icon inline-block w-32 h-32 rounded-full flex items-center justify-center mb-8">
+                <svg class="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h1 class="text-6xl font-bold mb-6 gradient-text">Запрос отправлен!</h1>
+            <p class="text-2xl text-gray-600 mb-12">Ментор получил ваш запрос и скоро свяжется с вами</p>
+        </div>
+
+        <!-- Booking Details -->
+        <div class="card p-8 mb-8">
+            <h2 class="text-3xl font-bold mb-6">Детали встречи</h2>
+            
+            <div class="space-y-6">
+                <!-- Mentor -->
+                <div class="flex items-center gap-4 pb-6 border-b border-gray-200">
+                    <img id="confirmMentorAvatar" src="" alt="" class="w-16 h-16 rounded-full avatar">
+                    <div>
+                        <p class="text-sm text-gray-500">Ментор</p>
+                        <p id="confirmMentorName" class="text-2xl font-bold"></p>
+                    </div>
+                </div>
+
+                <!-- Type -->
+                <div>
+                    <p class="text-sm text-gray-500 mb-1">Тип встречи</p>
+                    <p id="confirmType" class="text-xl font-medium"></p>
+                </div>
+
+                <!-- Date & Time -->
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">Дата</p>
+                        <p id="confirmDate" class="text-xl font-medium"></p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">Время</p>
+                        <p id="confirmTime" class="text-xl font-medium"></p>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <p class="text-sm text-gray-500 mb-1">Ваш запрос</p>
+                    <p id="confirmDescription" class="text-lg text-gray-700"></p>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <p class="text-sm text-gray-500 mb-1">Контакты</p>
+                    <p id="confirmContact" class="text-lg"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next Steps -->
+        <div class="info-box p-8 mb-8">
+            <h3 class="text-2xl font-bold mb-4">Что дальше?</h3>
+            <ol class="list-decimal list-inside space-y-3 text-lg text-gray-700">
+                <li>Ментор рассмотрит ваш запрос в течение 24 часов</li>
+                <li>Вы получите подтверждение на email</li>
+                <li>Перед встречей вам придёт ссылка на видеозвонок</li>
+                <li>В назначенное время подключитесь к сессии</li>
+            </ol>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex gap-4">
+            <a href="catalog.html" class="flex-1">
+                <button class="w-full btn-secondary py-5 px-8 text-xl font-medium rounded-lg">
+                    Найти других менторов
+                </button>
+            </a>
+            <a href="index.html" class="flex-1">
+                <button class="w-full btn-primary py-5 px-8 text-xl font-medium rounded-lg">
+                    На главную
+                </button>
+            </a>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script>
+        // Get booking data from localStorage
+        const bookingData = JSON.parse(localStorage.getItem('bookingData') || '{}');
+
+        if (Object.keys(bookingData).length === 0) {
+            // No booking data, redirect to catalog
+            window.location.href = 'catalog.html';
+        } else {
+            // Find mentor
+            const mentor = mentorsData.find(m => m.id === bookingData.mentorId);
+
+            if (mentor) {
+                // Populate confirmation details
+                document.getElementById('confirmMentorAvatar').src = mentor.avatar;
+                document.getElementById('confirmMentorAvatar').alt = mentor.name;
+                document.getElementById('confirmMentorName').textContent = bookingData.mentorName;
+
+                // Type
+                const typeName = bookingData.type === 'business' ? 'Бизнес-консультация' : 'Личная встреча';
+                const typePrice = bookingData.type === 'business' ? ` ($${mentor.price}/час)` : ' (договорная)';
+                document.getElementById('confirmType').textContent = typeName + typePrice;
+
+                // Date & Time
+                const dateObj = new Date(bookingData.date);
+                const dateFormatted = dateObj.toLocaleDateString('ru-RU', { 
+                    day: 'numeric', 
+                    month: 'long', 
+                    year: 'numeric' 
+                });
+                document.getElementById('confirmDate').textContent = dateFormatted;
+                document.getElementById('confirmTime').textContent = bookingData.time;
+
+                // Description
+                document.getElementById('confirmDescription').textContent = bookingData.description;
+
+                // Contact
+                const contactText = `${bookingData.userName} • ${bookingData.userEmail}`;
+                document.getElementById('confirmContact').textContent = contactText;
+            }
+
+            // Clear localStorage after displaying
+            // localStorage.removeItem('bookingData');
+        }
+    </script>
+</body>
+</html>

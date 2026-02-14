@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог менторов — OldSchool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        .card-mentor {
+            transition: all 0.3s ease;
+        }
+        
+        .card-mentor:hover img {
+            transform: scale(1.05);
+        }
+        
+        .card-mentor img {
+            transition: transform 0.5s ease;
+        }
+        
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Brand Name -->
+    <div class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-200">
+        <div class="flex items-center justify-between px-8 py-4">
+            <a href="index.html" class="text-lg text-gray-500 hover:text-primary transition-colors">← Главная</a>
+            <span class="text-xl font-bold gradient-text">OLDSCHOOL</span>
+            <div class="w-20"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-8 py-24 mt-16">
+        <!-- Page Title -->
+        <h1 class="text-6xl font-bold mb-16">Найти ментора</h1>
+
+        <!-- Filters -->
+        <div class="mb-12">
+            <div class="flex flex-wrap gap-3 mb-6">
+                <button onclick="filterByCategory('Все')" class="filter-btn active px-6 py-3 text-lg rounded-lg" data-category="Все">
+                    Все
+                </button>
+                <button onclick="filterByCategory('Управление и лидерство')" class="filter-btn px-6 py-3 text-lg rounded-lg" data-category="Управление и лидерство">
+                    Управление и лидерство
+                </button>
+                <button onclick="filterByCategory('Карьерное развитие и HR')" class="filter-btn px-6 py-3 text-lg rounded-lg" data-category="Карьерное развитие и HR">
+                    Карьерное развитие
+                </button>
+                <button onclick="filterByCategory('Предпринимательство')" class="filter-btn px-6 py-3 text-lg rounded-lg" data-category="Предпринимательство">
+                    Предпринимательство
+                </button>
+                <button onclick="filterByCategory('Финансы и аналитика')" class="filter-btn px-6 py-3 text-lg rounded-lg" data-category="Финансы и аналитика">
+                    Финансы
+                </button>
+            </div>
+
+            <!-- Search -->
+            <div class="relative">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="text-lg font-medium text-gray-700">Поиск менторов</span>
+                    <span class="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-primary to-accent rounded-full text-white text-xs font-semibold">
+                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+                        </svg>
+                        AI-подбор
+                    </span>
+                </div>
+                <div class="relative">
+                    <input 
+                        type="text" 
+                        id="searchInput"
+                        placeholder="Опишите, что ищете: 'хочу научиться управлять командой', 'нужен совет по карьере'..." 
+                        class="w-full px-6 py-4 pr-48 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary shadow-sm"
+                        oninput="searchMentors()"
+                    >
+                    <button class="absolute right-2 top-1/2 transform -translate-y-1/2 px-6 py-3 bg-gradient-to-r from-primary to-accent text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+                        </svg>
+                        Поиск AI
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mentors Grid -->
+        <div id="mentorsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Cards will be inserted here by JavaScript -->
+        </div>
+
+        <!-- No Results -->
+        <div id="noResults" class="hidden text-center py-16">
+            <p class="text-3xl text-gray-400">Менторы не найдены</p>
+            <p class="text-xl text-gray-400 mt-4">Попробуйте изменить фильтры</p>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script>
+        let currentFilter = 'Все';
+        let searchQuery = '';
+
+        // Render mentors
+        function renderMentors(mentors) {
+            const grid = document.getElementById('mentorsGrid');
+            const noResults = document.getElementById('noResults');
+            
+            if (mentors.length === 0) {
+                grid.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            noResults.classList.add('hidden');
+            
+            grid.innerHTML = mentors.map(mentor => `
+                <a href="profile.html?id=${mentor.id}" class="block group">
+                    <div class="card card-mentor overflow-hidden">
+                        <!-- Photo Section with Gradient Blur -->
+                        <div class="relative h-64 overflow-hidden">
+                            <img src="${mentor.avatar}" alt="${mentor.name}" class="w-full h-full object-cover">
+                            <!-- Gradient Overlay -->
+                            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white"></div>
+                            <!-- Match Badge on Photo -->
+                            <div class="absolute top-4 right-4">
+                                <span class="match-badge text-lg font-bold inline-block px-3 py-2 backdrop-blur-sm">${mentor.match}%</span>
+                            </div>
+                        </div>
+
+                        <!-- Info Section -->
+                        <div class="p-6">
+                            <!-- Name & Age -->
+                            <h3 class="text-2xl font-bold mb-1 gradient-text">${mentor.name}</h3>
+                            <p class="text-base text-gray-500 mb-3">${mentor.age} лет</p>
+
+                            <!-- Specialization -->
+                            <p class="text-lg font-medium text-gray-700 mb-3">${mentor.specialization}</p>
+
+                            <!-- Experience snippet -->
+                            <p class="text-sm text-gray-600 mb-4 line-clamp-2">${mentor.experience.substring(0, 100)}...</p>
+
+                            <!-- Stats -->
+                            <div class="flex items-center justify-between text-xs text-gray-500 mb-4 pb-4 border-b border-gray-200">
+                                <span class="rating-stars">★ ${mentor.rating.toFixed(1)}</span>
+                                <span>${mentor.sessions} сессий</span>
+                                <span class="price-badge">$${mentor.price}/час</span>
+                            </div>
+
+                            <!-- Skills -->
+                            <div class="flex flex-wrap gap-2">
+                                ${mentor.skills.slice(0, 3).map(skill => 
+                                    `<span class="skill-tag px-3 py-1 text-xs">${skill}</span>`
+                                ).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        // Filter by category
+        function filterByCategory(category) {
+            currentFilter = category;
+            
+            // Update button styles
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-category') === category) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            applyFilters();
+        }
+
+        // Search mentors
+        function searchMentors() {
+            searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            applyFilters();
+        }
+
+        // Apply all filters
+        function applyFilters() {
+            let filtered = mentorsData;
+
+            // Filter by category
+            if (currentFilter !== 'Все') {
+                filtered = filtered.filter(m => m.specialization === currentFilter);
+            }
+
+            // Filter by search query
+            if (searchQuery) {
+                filtered = filtered.filter(m => 
+                    m.name.toLowerCase().includes(searchQuery) ||
+                    m.specialization.toLowerCase().includes(searchQuery) ||
+                    m.experience.toLowerCase().includes(searchQuery) ||
+                    m.skills.some(skill => skill.toLowerCase().includes(searchQuery))
+                );
+            }
+
+            // Sort by match percentage
+            filtered.sort((a, b) => b.match - a.match);
+
+            renderMentors(filtered);
+        }
+
+        // Initial render
+        renderMentors(mentorsData.sort((a, b) => b.match - a.match));
+    </script>
+</body>
+</html>

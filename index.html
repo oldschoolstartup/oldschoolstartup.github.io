@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OldSchool — Менторство с опытом</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        .split-screen {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+        }
+        
+        .left-side {
+            background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%);
+        }
+        
+        .right-side {
+            background: linear-gradient(135deg, #1F2937 0%, #111827 100%);
+        }
+        
+        .hero-section {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 4rem;
+            padding-top: 7rem;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .check-icon {
+            color: var(--primary-light);
+            font-size: 1.8rem;
+            margin-right: 1rem;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+        
+        .check-icon-light {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-right: 1rem;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+        
+        li:hover .check-icon,
+        li:hover .check-icon-light {
+            transform: translateX(4px);
+        }
+        
+        li {
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
+        
+        li:hover {
+            background: rgba(79, 70, 229, 0.05);
+            transform: translateX(8px);
+        }
+        
+        .right-side li:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        @media (max-width: 1024px) {
+            .split-screen {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-section {
+                min-height: 50vh;
+                padding: 3rem 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="overflow-hidden">
+    <!-- Brand Name -->
+    <div class="fixed top-8 left-8 z-50">
+        <span class="text-2xl font-bold gradient-text">OLDSCHOOL</span>
+    </div>
+
+    <!-- Split Screen -->
+    <div class="split-screen">
+        <!-- Left Side - Для студентов -->
+        <div class="left-side">
+            <div class="hero-section">
+                <div class="mb-4">
+                    <span class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary font-medium text-sm">
+                        <span class="text-xl">🎓</span>
+                        ХОЧУ УЧИТЬСЯ
+                    </span>
+                </div>
+                
+                <h1 class="text-5xl font-bold mb-4 text-gray-900 leading-tight">
+                    Ищешь совет<br>и опыт?
+                </h1>
+                
+                <ul class="space-y-3 mb-8 text-lg">
+                    <li class="flex items-start">
+                        <span class="check-icon-light">›</span>
+                        <span class="text-gray-700">Найди ментора в своей сфере</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="check-icon-light">›</span>
+                        <span class="text-gray-700">Получи практический совет</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="check-icon-light">›</span>
+                        <span class="text-gray-700">Развивай soft skills с профи</span>
+                    </li>
+                </ul>
+                
+                <a href="catalog.html" class="inline-block group">
+                    <button class="btn-primary px-10 py-4 text-xl font-medium rounded-full shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:scale-105">
+                        Найти ментора
+                        <span class="inline-block ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Right Side - Для менторов -->
+        <div class="right-side">
+            <div class="hero-section">
+                <div class="mb-4">
+                    <span class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white font-medium text-sm">
+                        <span class="text-xl">👨‍🏫</span>
+                        ДЛЯ МЕНТОРОВ
+                    </span>
+                </div>
+                
+                <h1 class="text-5xl font-bold mb-4 text-white leading-tight">
+                    Готов делиться<br>знаниями?
+                </h1>
+                
+                <ul class="space-y-3 mb-8 text-lg">
+                    <li class="flex items-start">
+                        <span class="check-icon text-white">›</span>
+                        <span class="text-gray-300">Делись своим опытом 50+</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="check-icon text-white">›</span>
+                        <span class="text-gray-300">Помогай молодому поколению</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="check-icon text-white">›</span>
+                        <span class="text-gray-300">Работай в удобном формате</span>
+                    </li>
+                </ul>
+                
+                <a href="mentor-register.html" class="inline-block group">
+                    <button class="bg-white text-gray-900 px-10 py-4 text-xl font-medium rounded-full hover:bg-gray-100 transition-all shadow-xl hover:shadow-2xl transform duration-300 hover:scale-105">
+                        Стать ментором
+                        <span class="inline-block ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

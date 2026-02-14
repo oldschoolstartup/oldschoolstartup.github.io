@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль ментора — OldSchool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-gray-300 h-12 flex items-center px-8">
+        <a href="catalog.html" class="text-lg font-medium hover:underline">← Каталог</a>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-8 py-16">
+        <!-- Loading / Error State -->
+        <div id="loading" class="text-center py-16">
+            <p class="text-2xl text-gray-400">Загрузка...</p>
+        </div>
+
+        <!-- Profile Content -->
+        <div id="profileContent" class="hidden">
+            <!-- Header with Avatar -->
+            <div class="flex items-start gap-8 mb-12">
+                <img id="mentorAvatar" src="" alt="" class="w-40 h-40 rounded-full avatar">
+                <div class="flex-1">
+                    <h1 id="mentorName" class="text-5xl font-bold mb-3 gradient-text"></h1>
+                    <p id="mentorAge" class="text-2xl text-gray-500 mb-4"></p>
+                    <p id="mentorSpecialization" class="text-2xl font-medium text-gray-700 mb-4"></p>
+                    <div class="flex items-center gap-6 text-lg text-gray-600">
+                        <span id="mentorRating" class="rating-stars"></span>
+                        <span id="mentorSessions"></span>
+                        <span id="mentorLanguages"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Experience -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold mb-4">Опыт</h2>
+                <p id="mentorExperience" class="text-xl text-gray-700 leading-relaxed"></p>
+            </div>
+
+            <!-- Skills -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold mb-4">Компетенции</h2>
+                <div id="mentorSkills" class="flex flex-wrap gap-3">
+                    <!-- Skills will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Booking Options -->
+            <div class="bg-white border-2 border-gray-300 rounded-xl p-8 shadow-lg">
+                <h2 class="text-3xl font-bold mb-8">Забронировать встречу</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Personal Meeting -->
+                    <div class="booking-option p-6">
+                        <h3 class="text-2xl font-bold mb-3">Личная встреча</h3>
+                        <p class="text-lg text-gray-600 mb-4">Индивидуальная консультация по вашему запросу</p>
+                        <p class="text-3xl font-bold text-gray-800 mb-6">Договорная</p>
+                        <p class="text-sm text-gray-500 mb-6">Цена обсуждается индивидуально</p>
+                        <button onclick="bookMeeting('personal')" class="w-full btn-secondary py-4 px-6 text-xl font-medium rounded-lg">
+                            Записаться
+                        </button>
+                    </div>
+
+                    <!-- Business Meeting -->
+                    <div class="booking-option featured p-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <h3 class="text-2xl font-bold">Бизнес-консультация</h3>
+                            <span class="badge px-3 py-1 text-sm rounded">Популярно</span>
+                        </div>
+                        <p class="text-lg text-gray-600 mb-4">Для компаний и профессионального роста</p>
+                        <p class="text-3xl font-bold mb-2"><span id="mentorPrice" class="price-badge"></span>/час</p>
+                        <p class="text-sm text-gray-500 mb-6">Фиксированная ставка</p>
+                        <button onclick="bookMeeting('business')" class="w-full btn-primary py-4 px-6 text-xl font-medium rounded-lg">
+                            Записаться
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reviews Section (Mock) -->
+            <div class="mt-12">
+                <h2 class="text-3xl font-bold mb-6">Отзывы</h2>
+                <div class="space-y-4">
+                    <div class="review-card p-6">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-12 h-12 rounded-full bg-gray-300"></div>
+                            <div>
+                                <p class="font-bold">Анна Смирнова</p>
+                                <p class="text-sm text-gray-500">2 недели назад</p>
+                            </div>
+                            <span class="ml-auto rating-stars">★★★★★</span>
+                        </div>
+                        <p class="text-gray-700">Отличный ментор! Помог разобраться с карьерными приоритетами и выстроить план развития. Очень ценю его опыт и системный подход.</p>
+                    </div>
+                    
+                    <div class="review-card p-6">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-12 h-12 rounded-full bg-gray-300"></div>
+                            <div>
+                                <p class="font-bold">Михаил Петров</p>
+                                <p class="text-sm text-gray-500">1 месяц назад</p>
+                            </div>
+                            <span class="ml-auto rating-stars">★★★★★</span>
+                        </div>
+                        <p class="text-gray-700">Сессия была очень полезной. Получил конкретные рекомендации и инструменты для работы. Обязательно запишусь снова!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script>
+        // Get mentor ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const mentorId = parseInt(urlParams.get('id'));
+
+        // Find mentor
+        const mentor = mentorsData.find(m => m.id === mentorId);
+
+        if (!mentor) {
+            document.getElementById('loading').innerHTML = '<p class="text-2xl text-gray-400">Ментор не найден</p>';
+        } else {
+            // Hide loading, show content
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('profileContent').classList.remove('hidden');
+
+            // Populate data
+            document.getElementById('mentorAvatar').src = mentor.avatar;
+            document.getElementById('mentorAvatar').alt = mentor.name;
+            document.getElementById('mentorName').textContent = mentor.name;
+            document.getElementById('mentorAge').textContent = `${mentor.age} лет`;
+            document.getElementById('mentorSpecialization').textContent = mentor.specialization;
+            document.getElementById('mentorRating').textContent = `★ ${mentor.rating.toFixed(1)}`;
+            document.getElementById('mentorSessions').textContent = `${mentor.sessions} сессий`;
+            document.getElementById('mentorLanguages').textContent = mentor.languages.join(', ');
+            document.getElementById('mentorExperience').textContent = mentor.experience;
+            document.getElementById('mentorPrice').textContent = `$${mentor.price}`;
+
+            // Render skills
+            const skillsContainer = document.getElementById('mentorSkills');
+            skillsContainer.innerHTML = mentor.skills.map(skill => 
+                `<span class="skill-tag px-4 py-2 text-lg">${skill}</span>`
+            ).join('');
+
+            // Update page title
+            document.title = `${mentor.name} — OldSchool`;
+        }
+
+        // Book meeting function
+        function bookMeeting(type) {
+            window.location.href = `booking.html?id=${mentorId}&type=${type}`;
+        }
+    </script>
+</body>
+</html>

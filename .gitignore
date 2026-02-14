@@ -1,0 +1,28 @@
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependencies (если позже добавите)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build (если позже добавите сборку)
+dist/
+build/
+
+# Temp
+.tmp/
+temp/
