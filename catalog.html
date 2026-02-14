@@ -42,32 +42,32 @@
     </div>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-8 py-24 mt-16">
+    <main class="max-w-7xl mx-auto px-8 py-16 mt-8">
         <!-- Page Title -->
-        <h1 class="text-6xl font-bold mb-16">Найти ментора</h1>
+        <h1 class="text-6xl font-bold mb-10">Найти ментора</h1>
 
         <!-- Filters -->
-        <div class="mb-12">
-            <div class="flex flex-wrap gap-3 mb-6">
-                <button onclick="filterByCategory('Все')" class="filter-btn active px-6 py-3 text-lg rounded-lg" data-category="Все">
+        <div class="mb-10">
+            <div class="flex flex-wrap gap-2 mb-6">
+                <button onclick="filterByCategory('Все')" class="filter-btn active px-4 py-2 text-sm rounded-lg" data-category="Все">
                     Все
                 </button>
-                <button onclick="filterByCategory('Управление и лидерство')" class="filter-btn px-6 py-3 text-lg rounded-lg" data-category="Управление и лидерство">
+                <button onclick="filterByCategory('Управление и лидерство')" class="filter-btn px-4 py-2 text-sm rounded-lg" data-category="Управление и лидерство">
                     Управление и лидерство
                 </button>
-                <button onclick="filterByCategory('Карьерное развитие и HR')" class="filter-btn px-6 py-3 text-lg rounded-lg" data-category="Карьерное развитие и HR">
+                <button onclick="filterByCategory('Карьерное развитие и HR')" class="filter-btn px-4 py-2 text-sm rounded-lg" data-category="Карьерное развитие и HR">
                     Карьерное развитие
                 </button>
-                <button onclick="filterByCategory('Предпринимательство')" class="filter-btn px-6 py-3 text-lg rounded-lg" data-category="Предпринимательство">
+                <button onclick="filterByCategory('Предпринимательство')" class="filter-btn px-4 py-2 text-sm rounded-lg" data-category="Предпринимательство">
                     Предпринимательство
                 </button>
-                <button onclick="filterByCategory('Финансы и аналитика')" class="filter-btn px-6 py-3 text-lg rounded-lg" data-category="Финансы и аналитика">
+                <button onclick="filterByCategory('Финансы и аналитика')" class="filter-btn px-4 py-2 text-sm rounded-lg" data-category="Финансы и аналитика">
                     Финансы
                 </button>
             </div>
 
             <!-- Search -->
-            <div class="relative">
+            <div class="mb-6">
                 <div class="flex items-center gap-2 mb-3">
                     <span class="text-lg font-medium text-gray-700">Поиск менторов</span>
                     <span class="inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-primary to-accent rounded-full text-white text-xs font-semibold">
@@ -77,22 +77,28 @@
                         AI-подбор
                     </span>
                 </div>
-                <div class="relative">
+                <div style="position: relative; display: flex; align-items: center;">
                     <input 
                         type="text" 
                         id="searchInput"
+                        value="Управление"
                         placeholder="Опишите, что ищете: 'хочу научиться управлять командой', 'нужен совет по карьере'..." 
-                        class="w-full px-6 py-4 pr-48 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary shadow-sm"
+                        style="width: 100%; padding: 1rem 12rem 1rem 1.5rem; font-size: 1.125rem; border: 2px solid #d1d5db; border-radius: 0.75rem; outline: none;"
                         oninput="searchMentors()"
                     >
-                    <button class="absolute right-2 top-1/2 transform -translate-y-1/2 px-6 py-3 bg-gradient-to-r from-primary to-accent text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <button style="position: absolute; right: 0.5rem; padding: 0.75rem 2rem; background: linear-gradient(to right, #4F46E5, #8B5CF6); color: white; font-size: 1rem; font-weight: 700; border-radius: 0.5rem; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                        <svg style="width: 1.125rem; height: 1.125rem;" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
                         </svg>
-                        Поиск AI
+                        Поиск с AI
                     </button>
                 </div>
             </div>
+        </div>
+
+        <!-- Results Header -->
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-800">Вот кто тебе подходит</h2>
         </div>
 
         <!-- Mentors Grid -->
@@ -110,8 +116,7 @@
     <!-- Scripts -->
     <script src="js/data.js"></script>
     <script>
-        let currentFilter = 'Все';
-        let searchQuery = '';
+        let currentFilter = 'Все';        let searchQuery = '';
 
         // Render mentors
         function renderMentors(mentors) {
