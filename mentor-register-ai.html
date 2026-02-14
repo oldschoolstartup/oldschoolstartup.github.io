@@ -103,6 +103,56 @@
                 transform: translateY(-10px);
             }
         }
+        
+        @media (max-width: 768px) {
+            .chat-container {
+                height: calc(100vh - 150px);
+            }
+            
+            header .flex {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+            
+            header h1 {
+                font-size: 1.125rem !important;
+            }
+            
+            header p {
+                font-size: 0.75rem !important;
+            }
+            
+            .message-bot, .message-user {
+                max-width: 85%;
+                padding: 0.75rem 1rem;
+                font-size: 1rem;
+            }
+            
+            input[type="text"] {
+                padding: 0.75rem 1rem !important;
+                font-size: 1rem !important;
+            }
+            
+            .w-14 {
+                width: 3rem !important;
+                height: 3rem !important;
+            }
+            
+            .w-10 {
+                width: 2.5rem !important;
+                height: 2.5rem !important;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .message-bot, .message-user {
+                max-width: 90%;
+            }
+            
+            header .flex > div:last-child {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-indigo-50 via-white to-purple-50">
